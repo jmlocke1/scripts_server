@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Versiones de programas a instalar
+PHP_VERSION="5"
+NODE_MAJOR=24
+USUARIO="josemi"
+
+
 #El primer paso es instalar aplicaciones básicas
 sudo apt install build-essential
 sudo apt install htop
@@ -33,7 +39,7 @@ sudo apt install mariadb-server
 # Añadimos la codificación utf al archivo my.cnf
 # Pero primero hacemos una copia de seguridad del mismo
 sudo cp /etc/mysql/my.cnf /etc/mysql/my.cnf.back
-sudo echo '
+echo '
 
 [client]
 default-character-set=utf8mb4
@@ -49,7 +55,7 @@ collation-server = utf8mb4_unicode_ci
 [mysqld_safe]
 default-character-set=utf8mb4
 
-' >> /etc/mysql/my.cnf
+' | sudo tee -a /etc/mysql/my.cnf
 
 # Instalando php 8.1
 # apt install php8.1
@@ -64,13 +70,13 @@ default-character-set=utf8mb4
 # sudo apt install php8.2-{bcmath,xml,fpm,mysql,zip,intl,ldap,gd,cli,bz2,curl,mbstring,pgsql,opcache,soap,cgi}
 # sudo a2enconf php8.2-fpm
 
-# Instalando php 8.3
+# Instalando php
 sudo add-apt-repository ppa:ondrej/php
 sudo apt update
-sudo apt install php8.3
-#Extensiones de php8.3
-sudo apt install php8.3-{bcmath,xml,fpm,mysql,zip,intl,ldap,gd,cli,bz2,curl,mbstring,pgsql,opcache,soap,cgi}
-sudo a2enconf php8.3-fpm
+sudo apt install php8.$PHP_VERSION
+#Extensiones de php8.5
+sudo apt install php8.$PHP_VERSION-{common,bcmath,xml,fpm,mysql,zip,intl,ldap,gd,cli,bz2,curl,mbstring,pgsql,opcache,soap,cgi}
+sudo a2enconf php8.$PHP_VERSION-fpm
 sudo systemctl reload apache2
 
 # Generando las claves ssh
@@ -83,7 +89,7 @@ sudo apt install -y ca-certificates curl gnupg
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 #Creando el repositorio deb
-NODE_MAJOR=20
+
 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 sudo apt update
 sudo apt install nodejs -y
@@ -106,4 +112,4 @@ sudo apt install software-properties-common apt-transport-https wget ca-certific
 sudo apt install phpmyadmin
 
 # Añadimos el usuario al grupo www-data (Cambiar el usuario por el que proceda)
-sudo usermod -a -G www-data josemi_admin
+sudo usermod -a -G www-data $USUARIO
