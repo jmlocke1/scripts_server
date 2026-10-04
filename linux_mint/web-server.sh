@@ -94,7 +94,7 @@ sudo apt-get update
 
 sudo apt install php8.$PHP_VERSION
 #Extensiones de php8.5
-sudo apt install php8.$PHP_VERSION-{common,bcmath,xml,fpm,mysql,zip,intl,ldap,gd,cli,bz2,curl,mbstring,pgsql,opcache,soap,cgi}
+sudo apt install php8.$PHP_VERSION-{common,bcmath,xml,fpm,mysql,zip,intl,ldap,gd,cli,bz2,curl,mbstring,pgsql,soap,cgi}
 sudo a2enconf php8.$PHP_VERSION-fpm
 sudo systemctl reload apache2
 
