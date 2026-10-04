@@ -81,8 +81,17 @@ echo "¡Usuario '$DB_USER' creado con éxito!"
 
 # Instalando php
 echo "Instalando php 8.$PHP_VERSION y algunas extensiones"
-sudo add-apt-repository ppa:ondrej/php
-sudo apt update
+# Este repositorio estará obsoleto pronto
+# sudo add-apt-repository ppa:ondrej/php
+
+# Nueva forma de añadir el repositorio
+sudo apt-get -y install lsb-release ca-certificates curl
+sudo curl -sSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb
+sudo dpkg -i /tmp/debsuryorg-archive-keyring.deb
+sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/debsuryorg-archive-keyring.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+sudo apt-get update
+
+
 sudo apt install php8.$PHP_VERSION
 #Extensiones de php8.5
 sudo apt install php8.$PHP_VERSION-{common,bcmath,xml,fpm,mysql,zip,intl,ldap,gd,cli,bz2,curl,mbstring,pgsql,opcache,soap,cgi}
