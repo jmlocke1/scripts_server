@@ -1,12 +1,11 @@
 #!/bin/bash
 
+# Variables de usuario privadas
+source ./variables.sh
 # Versiones de programas a instalar
 PHP_VERSION="5"
 NODE_MAJOR=24
-USUARIO="josemi"
-DB_USER="usprueba"
-DB_HOST="localhost"
-DB_PASS="usprueba"
+
 # Colores para mostrar los mensajes
 COLOR="\e[1;36m"    # Establece el color del texto del mensaje
 RESET="\e[0m"       # Resetea los colores a sus colores por defecto
