@@ -7,6 +7,8 @@ curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | sudo gpg -o /usr/
 echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 sudo apt update
 sudo apt install mongodb-org
+# Habilitamos el servicio en el gestor del sistema para que arranque al inicio del sistema
+sudo systemctl enable mongod
 sudo systemctl start mongod
 # Si solamente se va a acceder a MongoDB desde el propio servidor, no hay que hacer nada.
 # Si se quiere acceder a MongoDB desde cualquier servidor, hay que hacer lo siguiente:
